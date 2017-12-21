@@ -8,8 +8,12 @@ var Graph = (function (undefined) {
 		return keys;
 	}
 
+	function getWeight(value){
+		return typeof value === 'function' ? value() : parseFloat(value)
+	}
+
 	var sorter = function (a, b) {
-		return parseFloat (a) - parseFloat (b);
+		return getWeight(a) - getWeight(b);
 	}
 
 	var findPaths = function (map, start, end, infinity) {
@@ -36,14 +40,14 @@ var Graph = (function (undefined) {
 			var key = keys[0],
 			    bucket = open[key],
 			    node = bucket.shift(),
-			    currentCost = parseFloat(key),
+			    currentCost = getWeight(key),
 			    adjacentNodes = map[node] || {};
 
 			if (!bucket.length) delete open[key];
 
 			for (var vertex in adjacentNodes) {
 			    if (Object.prototype.hasOwnProperty.call(adjacentNodes, vertex)) {
-					var cost = adjacentNodes[vertex],
+					var cost = getWeight(adjacentNodes[vertex]),
 					    totalCost = cost + currentCost,
 					    vertexCost = costs[vertex];
 
@@ -68,7 +72,7 @@ var Graph = (function (undefined) {
 		var nodes = [],
 		    u = end;
 
-		while (u !== undefined) {
+		while (u) {
 			nodes.push(u);
 			u = predecessors[u];
 		}

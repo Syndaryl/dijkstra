@@ -7,13 +7,15 @@
 	</head>
 	<body>
 		<script>
-			var map = {a:{b:3,c:1},b:{a:2,c:1},c:{a:4,b:1}},
+			var map = {a:{b:3,c:1},b:{a:2,c:1, c:2},c:{a:4, b:3, d:1}, d:{b:1,c:1}},
 			    graph = new Graph(map);
-
+			console.log(map);
 			console.log(graph.findShortestPath('a', 'b'));
 			console.log(graph.findShortestPath('a', 'c'));
 			console.log(graph.findShortestPath('b', 'a'));
 			console.log(graph.findShortestPath('b', 'c', 'b'));
+			console.log(graph.findShortestPath('b', 'a', 'b'));
+			console.log(graph.findShortestPath('b', 'd', 'b'));
 			console.log(graph.findShortestPath('c', 'a', 'b'));
 			console.log(graph.findShortestPath('c', 'b', 'a'));
 		</script>
